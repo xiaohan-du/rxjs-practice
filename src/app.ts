@@ -1,8 +1,8 @@
 import { Observable } from "rxjs";
 let observable$ = new Observable((subscriber) => {
   subscriber.next("Hello world");
-  subscriber.complete();
   subscriber.error();
+  subscriber.complete();
 })
 
 let observer = {
