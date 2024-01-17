@@ -1,4 +1,4 @@
-import { Observable, Observer, from, of } from "rxjs"
+import { Observable, Observer, from, map, of, filter } from "rxjs"
 
 const observable$ = new Observable<string>((subscriber) => {
   subscriber.next("Hi");
@@ -35,3 +35,11 @@ console.log(promise);
 const promiseObservable$ = from(promise);
 // showing resolved promise
 promiseObservable$.subscribe(observer);
+
+// chain operator in pipe
+const observablePipe$ = from([1, 2, 3]).pipe(
+  map((val: any) => val * 2),
+  filter((val: any) => val > 2)
+);
+
+observablePipe$.subscribe(observer);
