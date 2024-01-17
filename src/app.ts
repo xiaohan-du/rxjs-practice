@@ -43,3 +43,8 @@ const observablePipe$ = from([1, 2, 3]).pipe(
 );
 
 observablePipe$.subscribe(observer);
+
+from([2, 3, 4]).pipe(
+  map((val: any) => val - 1),
+  filter((val: any) => val >= 2)
+).subscribe(observer);
