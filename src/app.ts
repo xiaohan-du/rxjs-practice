@@ -1,18 +1,26 @@
-import { Observable, of } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
-of('Teddy', 'is', 'cool').subscribe({
-  next: v => console.log(v),
-  error: e => console.log(e),
-  complete: () => console.log("complete")
-});
-
-const handmadeOf = (...args: any) => {
-  return new Observable(subscriber => {
-    for (let i = 0; i < args.length; i++) {
-      subscriber.next(args[i])
-    }
-    subscriber.complete();
-  })
+const observer: Observer<string> = {
+  next: (val: string): void => {
+    console.log(val);
+  },
+  error: (err: string): void => {
+    console.log(err)
+  },
+  complete: (): void => {
+    console.log("complete");
+  }
 }
 
-handmadeOf('Teddy', 'is', 'cool').subscribe(v => console.log(v));
+const observable$ = new Observable<string>((subscriber) => {
+  try {
+    subscriber.next("Hi");
+  } catch {
+    subscriber.error("err");
+  };
+  subscriber.complete();
+});
+
+observable$.subscribe(observer);
+
+of("a", "b", "c").subscribe(observer);
